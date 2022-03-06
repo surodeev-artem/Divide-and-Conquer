@@ -10,11 +10,12 @@ public class Main {
             array[i] = i;
         }
         System.out.println(recursiveSearch(array, 6));
+        System.out.println(loopSearch(array, 6));
     }
 
     private static int recursiveSearch(int[] array, int searchElement) {
         int countOfElements = array.length;
-        int indexOfMiddleElement = (int)countOfElements/2;
+        int indexOfMiddleElement = (int) countOfElements / 2;
         int middleElement = array[indexOfMiddleElement];
         if (searchElement == middleElement) {
             return middleElement;
@@ -25,5 +26,22 @@ public class Main {
         } else {
             return -1;
         }
+    }
+
+    private static int loopSearch(int[] array, int searchElement) {
+        int countOfElements = array.length;
+        int indexOfMiddleElement = (int)countOfElements / 2;
+        int middleElement = array[indexOfMiddleElement];
+        while (middleElement != searchElement) {
+            if (searchElement > middleElement) {
+                array = Arrays.copyOfRange(array, indexOfMiddleElement + 1, countOfElements);
+            } else if (searchElement < middleElement) {
+                array = Arrays.copyOfRange(array, 0, indexOfMiddleElement);
+            }
+            countOfElements = array.length;
+            indexOfMiddleElement = (int) countOfElements / 2;
+            middleElement = array[indexOfMiddleElement];
+        }
+        return middleElement;
     }
 }
